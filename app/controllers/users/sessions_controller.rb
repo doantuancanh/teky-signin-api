@@ -12,8 +12,8 @@ class Users::SessionsController < Devise::SessionsController
   after_action :reset_session_token, only: :destroy
   # POST /resource/sign_in
   def create
-    user = User.where(:email => params[:user][:email]).first
-    if user && user.valid_password?(params[:user][:password])
+    user = User.where(:email => params[:email]).first
+    if user && user.valid_password?(params[:password])
       token = generate_token user
       render json: {token: token, status: :ok}, status: :ok
       return
